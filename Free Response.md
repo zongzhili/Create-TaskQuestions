@@ -50,6 +50,34 @@ function insertText(inputContent, type) {
 }
 ```
 
+```javascript butter
+function retrieveFeelingQuote(category) {
+  DOMSelectors.mainOutput.innerHTML = ""; //Gets rid of previous current quote
+  $.ajax({
+    method: "GET",
+    url: "https://api.api-ninjas.com/v1/quotes?category=" + category,
+    headers: { "X-Api-Key": "e83S07p6GaMOgL3Tbp4W7g==SzjBmXqoFLEGxuow" },
+    contentType: "application/json",
+    success: function (result) {
+      console.log("Retrieved Quote:", result); //Check: Quote Retrieval
+      const quoteObject = {
+        author: result[0].author,
+        quote: result[0].quote,
+        category: category,
+      };
+      quoteHistory.push(quoteObject); //Quote added to long term storage (History)
+      console.log("History of Quotes:", quoteHistory); //Check to see if in long term
+      quoteCurrent.length = 0; //Empty quoteCurrent
+      quoteCurrent.push(quoteObject); //Quote added to short term storage (Current Quote)
+      // Display the quote on the page
+      console.log("Current Quote:", quoteCurrent); //Check to see if current quote works
+      for (let i = 0; i < quoteCurrent.length; i++) { //iteration
+        const quote = quoteCurrent[i];
+        createQuoteCard(quote);
+      }
+    }
+```
+
 ### Question 1
 
 Programs accept input to achieve their intended functionality. **Describe at least one valid input to your program and what your program does with that input.**
@@ -58,10 +86,29 @@ Programs accept input to achieve their intended functionality. **Describe at lea
 - If there are multiple parts to this question, write the part letter with your response.
 
 ```js angelina
-DOMSelect.submit.addEventListener("click", function () {
-  insertText(DOMSelect.input.childNodes), "paste";
-});
-DOMSelect.fileinput.addEventListener("change", parseFile);
+function parseFile() {
+  let fr = new FileReader();
+  fr.onload = function () {
+    const content = fr.result;
+    insertText(content.split("\n"), "file");
+  };
+  fr.readAsText(this.files[0]);
+}
+```
+
+```js butter
+$.ajax({
+    method: "GET",
+    url: "https://api.api-ninjas.com/v1/quotes?category=" + category,
+    headers: { "X-Api-Key": "e83S07p6GaMOgL3Tbp4W7g==SzjBmXqoFLEGxuow" },
+    contentType: "application/json",
+    success: function (result) {
+      console.log("Retrieved Quote:", result); //Check: Quote Retrieval
+      const quoteObject = {
+        author: result[0].author,
+        quote: result[0].quote,
+        category: category,
+      };
 ```
 
 ## One valid input is a text file and displaying it with different css.
@@ -74,7 +121,8 @@ Refer to your Personalized Project Reference when answering this question.
 
 Consider the first iteration statement included in the Procedure section of your Personalized Project Reference. **Describe what is being accomplished by the code in the body of the iteration statement.**
 
-The first iteration statement inserts the input content from the user back onto the screen.
+The first iteration statement inserts the input content from the user back onto the screen (angelina).
+The first iteration statement is a for loop that creates a quote card (butter).
 
 #### Part (b):
 
@@ -98,11 +146,13 @@ Using the list identified in the List section of your Personalized Project Refer
 
 - Write your responses to this question only on the designated pages in the separate Written Response booklet.
 - If there are multiple parts to this question, write the part letter with your response.
-``` js
+
+```js
 function checkValidity(value){
     if(value)
 }
 ```
+
 ---
 
 ### End of Exam

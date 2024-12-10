@@ -27,18 +27,21 @@ function displayToDoList(array) {
   });
 
   function removeToDo() {
+    //algorithm but only one call
     const specificCard = this.parentElement;
     const specificCardText =
       specificCard.querySelector(".to-do-card").textContent;
 
     for (let i = 0; i < ToDoItems.length; i++) {
+      //iteration
       if (ToDoItems[i] === specificCardText) {
+        //selection
         ToDoItems.splice(i, 1);
         break;
-      }
+      } //loops through all the to-dos, and removes it from the array
     }
     specificCard.remove();
   }
-}
+} //sequencing, in ordered steps
 
 DOMSelectors.submitButton.addEventListener("click", addToDo);
